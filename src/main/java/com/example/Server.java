@@ -1,3 +1,5 @@
+package com.example;
+
 import com.sun.jersey.freemarker.FreemarkerViewProcessor;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 import org.glassfish.grizzly.http.server.HttpServer;
@@ -37,12 +39,14 @@ public class Server {
         WebappContext context = new WebappContext("context");
         ServletRegistration registration =
                 context.addServlet("ServletContainer", ServletContainer.class);
+        LOG.info("Path: "+Server.class.getPackage().getName());
         registration.setInitParameter("com.sun.jersey.config.property.packages", Server.class.getPackage().getName());
-        registration.addMapping("/*");
-
         // Add Freemarker template mapping
         registration.setInitParameter(FreemarkerViewProcessor.FREEMARKER_TEMPLATES_BASE_PATH,
                 "freemarker");
+        registration.addMapping("/*");
+
+
 
         // Create the container
         final HttpServer server = GrizzlyWebContainerFactory.create(BASE_URI);
@@ -61,7 +65,7 @@ public class Server {
 
         try {
             server.start();
-            LOG.info("Server Ready... Press CTRL^C to exit..");
+            LOG.info("com.example.Server Ready... Press CTRL^C to exit..");
             Thread.currentThread().join();
         } catch (Exception e) {
             LOG.error("Exception starting HTTP server: ", e);
