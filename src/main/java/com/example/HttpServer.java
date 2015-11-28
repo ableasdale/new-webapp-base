@@ -41,6 +41,7 @@ public class HttpServer {
                 .register(org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature.class);
 
         LOG.info("Starting grizzly HTTP Server");
+        LOG.info(String.format("For a list of available HTTP Resources go to: %sapplication.wadl", BASE_URI));
         return GrizzlyHttpServerFactory.createHttpServer(BASE_URI, rc);
     }
 

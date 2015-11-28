@@ -59,6 +59,7 @@ public class WebContainer {
         try {
             server.start();
             LOG.info("com.example.WebContainer Ready... Press CTRL^C to exit..");
+            LOG.info(String.format("For a list of available HTTP Resources go to: %sapplication.wadl", BASE_URI));
             Thread.currentThread().join();
         } catch (Exception e) {
             LOG.error("Exception starting HTTP server: ", e);
