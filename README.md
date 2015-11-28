@@ -4,8 +4,13 @@
 - HttpServer
 - WebContainer
 
+###URIs###
+- /application.wadl
+- / (plain HTML)
+- /bootstrap (Using bootstrap 3)
+
 ###TODO###
 - Add at least one provider
 - Connect http://0.0.0.0:9999/application.wadl to swagger.io ?
 - Other MVC engines (mustache, jade?)
-- HTML 5 Templates (bootstrap.js?)
+- Other HTML 5 Templates (boilerplate, kickstrap/angular js?)

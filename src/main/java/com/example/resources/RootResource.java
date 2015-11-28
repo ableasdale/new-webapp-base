@@ -17,7 +17,6 @@ import javax.ws.rs.core.MediaType;
 @Path("/")
 public class RootResource extends BaseResource {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(RootResource.class);
 
     @GET
