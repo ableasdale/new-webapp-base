@@ -4,6 +4,7 @@ package com.example;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.servlet.GrizzlyWebContainerFactory;
 import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
+import org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,9 +41,12 @@ public class WebContainer {
         String[] packages = {"com.example.resources"};
         final Map<String, String > initParams = new HashMap<String, String>();
 
-        initParams.put("jersey.config.server.provider.classnames", "org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature");
+        initParams.put("jersey.config.server.provider.classnames", "org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature,org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature");
+        //initParams.put("jersey.config.server.provider.classnames", "");
+
         initParams.put("jersey.config.server.provider.packages", packages[0]);
         initParams.put(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, "freemarker");
+        initParams.put(MustacheMvcFeature.TEMPLATE_BASE_PATH, "mustache");
 
         // Create the container
         final HttpServer server = GrizzlyWebContainerFactory.create(BASE_URI,initParams);

@@ -3,6 +3,7 @@ package com.example;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
+import org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +39,9 @@ public class HttpServer {
         ResourceConfig rc = new ResourceConfig()
                 .packages(packages)
                 .property(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, "freemarker")
-                .register(org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature.class);
+                .property(MustacheMvcFeature.TEMPLATE_BASE_PATH, "mustache")
+                .register(org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature.class)
+                .register(org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature.class);
 
         LOG.info("Starting grizzly HTTP Server");
         LOG.info(String.format("For a list of available HTTP Resources go to: %sapplication.wadl", BASE_URI));
