@@ -40,7 +40,7 @@ public class HttpServer {
                 .property(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, "freemarker")
                 .register(org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature.class);
 
-        LOG.info("Starting grizzly...");
+        LOG.info("Starting grizzly HTTP Server");
         return GrizzlyHttpServerFactory.createHttpServer(BASE_URI, rc);
     }
 

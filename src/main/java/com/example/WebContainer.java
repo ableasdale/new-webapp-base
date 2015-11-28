@@ -1,21 +1,21 @@
 package com.example;
 
-import com.sun.jersey.freemarker.FreemarkerViewProcessor;
-import com.sun.jersey.spi.container.servlet.ServletContainer;
+
 import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.grizzly.servlet.ServletRegistration;
-import org.glassfish.grizzly.servlet.WebappContext;
 import org.glassfish.jersey.grizzly2.servlet.GrizzlyWebContainerFactory;
+import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Server {
+public class WebContainer {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Server.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WebContainer.class);
     public static final URI BASE_URI = getBaseURI();
 
     private static URI getBaseURI() {
@@ -30,29 +30,22 @@ public class Server {
      * @throws IOException in case the application could not be started.
      */
     public static void main(String[] args) throws Exception {
-        new Server().startServer();
+        new WebContainer().startServer();
     }
 
     public static void startServer() throws IOException {
         LOG.info("Starting Grizzly Web Container.");
 
-        WebappContext context = new WebappContext("context");
-        ServletRegistration registration =
-                context.addServlet("ServletContainer", ServletContainer.class);
-        LOG.info("Path: "+Server.class.getPackage().getName());
-        registration.setInitParameter("com.sun.jersey.config.property.packages", Server.class.getPackage().getName());
-        // Add Freemarker template mapping
-        registration.setInitParameter(FreemarkerViewProcessor.FREEMARKER_TEMPLATES_BASE_PATH,
-                "freemarker");
-        registration.addMapping("/*");
 
+        String[] packages = {"com.example.resources"};
+        final Map<String, String > initParams = new HashMap<String, String>();
 
+        initParams.put("jersey.config.server.provider.classnames", "org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature");
+        initParams.put("jersey.config.server.provider.packages", packages[0]);
+        initParams.put(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, "freemarker");
 
         // Create the container
-        final HttpServer server = GrizzlyWebContainerFactory.create(BASE_URI);
-
-        // Deploy the application into the container
-        context.deploy(server);
+        final HttpServer server = GrizzlyWebContainerFactory.create(BASE_URI,initParams);
 
         // Register shutdown hook for container
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -65,7 +58,7 @@ public class Server {
 
         try {
             server.start();
-            LOG.info("com.example.Server Ready... Press CTRL^C to exit..");
+            LOG.info("com.example.WebContainer Ready... Press CTRL^C to exit..");
             Thread.currentThread().join();
         } catch (Exception e) {
             LOG.error("Exception starting HTTP server: ", e);
