@@ -1,6 +1,7 @@
 package com.example.resources;
 
-import com.sun.jersey.api.view.Viewable;
+
+import org.glassfish.jersey.server.mvc.Viewable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +23,9 @@ public class RootResource extends BaseResource {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public Viewable getDashboard() {
+        LOG.info("Call to root resource (/)");
 
-        // renders the URI using "src/main/resources/freemarker/dashboard.ftl"
+        // renders the URI using "src/main/resources/freemarker/rootresource.ftl"
         return new Viewable("/rootresource", createModel("Landing Page"));
     }
 
