@@ -1,6 +1,8 @@
 package com.example;
 
 
+import com.example.resources.HelloResource;
+import io.swagger.jaxrs.config.BeanConfig;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.servlet.GrizzlyWebContainerFactory;
 import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
@@ -38,13 +40,21 @@ public class WebContainer {
         LOG.info("Starting Grizzly Web Container.");
 
 
-        String[] packages = {"com.example.resources"};
+        BeanConfig beanConfig = new BeanConfig();
+        beanConfig.setVersion("1.0");
+        beanConfig.setScan(true);
+        beanConfig.setResourcePackage(HelloResource.class.getPackage().getName());
+        beanConfig.setBasePath(BASE_URI.toString());
+        beanConfig.setDescription("Hello resources");
+        beanConfig.setTitle("Hello API");
+
+        String packages = "com.example.resources,io.swagger.jaxrs.listing";
         final Map<String, String > initParams = new HashMap<String, String>();
 
         initParams.put("jersey.config.server.provider.classnames", "org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature,org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature");
         //initParams.put("jersey.config.server.provider.classnames", "");
 
-        initParams.put("jersey.config.server.provider.packages", packages[0]);
+        initParams.put("jersey.config.server.provider.packages", packages);
         initParams.put(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, "freemarker");
         initParams.put(MustacheMvcFeature.TEMPLATE_BASE_PATH, "mustache");
 

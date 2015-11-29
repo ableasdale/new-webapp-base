@@ -1,0 +1,41 @@
+<configuration debug="true">
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <!-- reset all previous level configurations of all j.u.l. loggers -->
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>-->
+
+        <!--<layout class="ch.qos.logback.classic.PatternLayout">-->
+            <!--<Pattern>-->
+                <!--%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n-->
+            <!--</Pattern>-->
+        <!--</layout>-->
+
+    </appender>
+
+    <logger name="io.swagger" level="trace" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.glassfish" level="trace" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+
+    <root level="trace">
+        <appender-ref ref="STDOUT" />
+        <!--<logger name="org.glassfish.jersey" level="TRACE"/>-->
+        <!--<logger name="io.swagger" level="TRACE"/>-->
+        <!--<logger name="org.reflections.Reflections" level="DEBUG"/>-->
+    </root>
+</configuration>
