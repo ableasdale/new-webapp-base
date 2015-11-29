@@ -22,7 +22,7 @@ TODO - gradle exec
 - Other MVC engines (jade?)
 - Other HTML 5 Templates ?
 
-### Testing (Using MarkLogic to get the JSON payload) ###
+### Testing the Swaggger endpoint (Using MarkLogic to get the JSON payload) ###
 ```xquery
 declare variable $options := 
 <options xmlns="xdmp:http">
