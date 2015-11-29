@@ -28,16 +28,29 @@ configurations.all {
 dependencies {
 
     compile "org.glassfish.jersey.core:jersey-client:$jerseyVersion"
+    compile "org.glassfish.jersey.core:jersey-server:$jerseyVersion"
     compile "org.glassfish.jersey.containers:jersey-container-grizzly2-http:$jerseyVersion"
     compile "org.glassfish.jersey.containers:jersey-container-grizzly2-servlet:$jerseyVersion"
-    compile "org.glassfish.jersey.core:jersey-client:$jerseyVersion"
     compile "org.glassfish.jersey.ext:jersey-mvc-freemarker:$jerseyVersion"
     compile "org.glassfish.jersey.ext:jersey-mvc-mustache:$jerseyVersion"
+    compile "org.glassfish.jersey.ext:jersey-mvc-jsp:$jerseyVersion"
+    compile "org.glassfish.jersey.ext:jersey-bean-validation:$jerseyVersion"
+
     compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
     compile "org.glassfish.jersey.media:jersey-media-moxy:$jerseyVersion"
     compile "org.glassfish.jersey.media:jersey-media-json-processing:$jerseyVersion"
 
+
+    compile "javax.servlet:javax.servlet-api:3.1-b05"
+    compile "org.glassfish.web:javax.servlet.jsp:2.2.5"
+    compile "org.glassfish.web:javax.servlet.jsp.jstl:1.2.2"
+
+
+
     compile 'org.glassfish:javax.json:1.0.4'
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'javax.xml.bind:jaxb-api:2.2.12'
+    compile 'javax.xml.bind:jaxb-api-osgi:2.2.7'
 
     compile "io.swagger:swagger-jersey2-jaxrs:$swaggerVersion"
 

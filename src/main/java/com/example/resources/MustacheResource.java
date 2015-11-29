@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/mustache")
 public class MustacheResource extends BaseResource {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RootResource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MustacheResource.class);
 
     @GET
     @Produces(MediaType.TEXT_HTML)
