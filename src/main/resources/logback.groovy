@@ -5,9 +5,6 @@ import ch.qos.logback.classic.jul.LevelChangePropagator
 
 //logback.debug=true
 
-// for debug: just to see it in case something is logging/initialized before
-System.out.println( 'my myapp logback.groovy is loading' )
-
 // see also: http://logback.qos.ch/manual/configuration.html#LevelChangePropagator
 // performance speedup for redirected JUL loggers
 def lcp = new LevelChangePropagator()
