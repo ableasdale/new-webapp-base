@@ -1,7 +1,10 @@
 #Jersey 2 / Grizzly 2 Web Application Base#
 ##Getting Started##
+
+TODO - gradle exec
+
 ###Run either class###
-- HttpServer
+- HttpServer (currently broken for swagger)
 - WebContainer
 
 ###URIs###
@@ -15,12 +18,12 @@
 ###TODO###
 - Add at least one provider
 - Completely connect http://0.0.0.0:9999/application.wadl to swagger.io (only partially implemented)
-- Hook up logging servlet for logback http://logback.qos.ch/manual/configuration.html
+- Correctly Hook up logging servlet for logback http://logback.qos.ch/manual/configuration.html
 - Other MVC engines (jade?)
 - Other HTML 5 Templates ?
 
-### Testing (Using MarkLogic to get the JSON payload ###
-```
+### Testing (Using MarkLogic to get the JSON payload) ###
+```xquery
 declare variable $options := 
 <options xmlns="xdmp:http">
   <headers>
