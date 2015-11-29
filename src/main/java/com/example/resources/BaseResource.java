@@ -15,7 +15,7 @@ public class BaseResource {
 
     protected Map<String, Object> createModel(String id) {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("title", "Your Example title goes here");
+        map.put("title", "Example title");
         map.put("id", id);
         return map;
     }
