@@ -77,14 +77,8 @@ logger( "org", rootLvl )
 logger( "sun", rootLvl )
 
 */
+
 logger( "org.glassfish", rootLvl )
-// my logger setup
-
 logger( "com.example", DEBUG )
-
-
-//logger( "org.hibernate.SQL", DEBUG )  // debug: log SQL statements in DEBUG mode
-//logger( "org.hibernate.type", TRACE )  // debug: log JDBC parameters in TRACE mode
-//logger( "org.hibernate.type.BasicTypeRegistry", WARN )  // uninteresting
 
 scan("30 seconds")  // reload/apply-on-change config every x sec
