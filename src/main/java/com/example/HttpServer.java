@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.config.Config;
 import com.example.resources.HelloResource;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jersey.listing.ApiListingResourceJSON;
@@ -39,16 +40,11 @@ import java.util.Map;
 public class HttpServer {
 
     private static final Logger LOG = LoggerFactory.getLogger(HttpServer.class);
-    public static final URI BASE_URI = getBaseURI();
 
     private static final String JERSEY_SERVLET_CONTEXT_PATH = "";
     private static final String JSP_CLASSPATH_ATTRIBUTE =
             "org.apache.catalina.jsp_classpath";
 
-    private static URI getBaseURI() {
-        return UriBuilder.fromUri("http://0.0.0.0")
-                .port(9999).path("/").build();
-    }
 
     /**
      * Start the Jersey FreeMarker application.
@@ -88,7 +84,7 @@ public class HttpServer {
         beanConfig.setVersion("1.0");
         beanConfig.setScan(true);
         beanConfig.setResourcePackage(HelloResource.class.getPackage().getName());
-        beanConfig.setBasePath(BASE_URI.toString());
+        beanConfig.setBasePath(Config.getBaseURI().toString());
         beanConfig.setDescription("Hello resources");
         beanConfig.setTitle("Hello API");
 
@@ -125,8 +121,8 @@ public class HttpServer {
 
 
         LOG.info("Starting grizzly HTTP Server");
-        LOG.info(String.format("For a list of available HTTP Resources go to: %sapplication.wadl", BASE_URI));
-        org.glassfish.grizzly.http.server.HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, rc);
+        LOG.info(String.format("For a list of available HTTP Resources go to: %sapplication.wadl", Config.getBaseURI()));
+        org.glassfish.grizzly.http.server.HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(Config.getBaseURI(), rc);
 
         WebappContext context = new WebappContext("WebappContext", JERSEY_SERVLET_CONTEXT_PATH);
 
