@@ -25,7 +25,7 @@ public class JspResource extends BaseResource {
         LOG.info("Call to JSP resource and in getDashboard()");
 
         // renders the URI using "src/main/resources/jsp/index.jsp"
-        return new Viewable("/index.jsp", createModel("JSP Landing Page"));
+        return new Viewable("index.jsp", createModel("JSP Landing Page"));
     }
 
 }

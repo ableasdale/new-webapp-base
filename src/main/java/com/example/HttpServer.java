@@ -87,8 +87,10 @@ public class HttpServer {
                 // TODO - below is still wrong!
                 .property("jersey.config.servlet.filter.staticContentRegex", "/(images|js|styles|(jsp))/.*")
                 .property("jersey.config.servlet.filter.forwardOn404", "true")
-                .property(ServerProperties.TRACING, TracingConfig.ON_DEMAND.name())
 
+                // Debug tracing
+                .property(ServerProperties.TRACING, TracingConfig.ON_DEMAND.name())
+                .property(ServerProperties.TRACING_THRESHOLD, "VERBOSE")
 
                 .register(org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature.class)
                 .register(org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature.class)

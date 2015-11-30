@@ -56,7 +56,7 @@ appender("FILE", FileAppender) {  // dev
 //root(DEBUG, ["STDOUT", "FILE"])  // dev
 
 // with JUL bridge: (workaround: see links above)
-def rootLvl = DEBUG
+def rootLvl = TRACE
 root(TRACE, ["STDOUT"])
 // I manually added all "root package dirs" I know my libs are based on to apply
 // the root level to the second "package dir level" at least
@@ -78,7 +78,7 @@ logger( "sun", rootLvl )
 
 */
 
-logger( "org.glassfish", rootLvl )
+logger( "org.glassfish", TRACE )
 logger( "com.example", DEBUG )
 
 scan("30 seconds")  // reload/apply-on-change config every x sec

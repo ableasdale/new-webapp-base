@@ -1,17 +1,14 @@
 package com.example;
 
-
 import com.example.config.Config;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.servlet.GrizzlyWebContainerFactory;
-import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
-import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
-import org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature;
+import org.glassfish.jersey.server.ServerProperties;
+import org.glassfish.jersey.server.TracingConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 public class WebContainer {
@@ -41,10 +38,15 @@ public class WebContainer {
 
         initParams.put("jersey.config.server.provider.classnames", Config.getProviderClassnames());
 
-        // FOR JSP
-        initParams.put("jersey.config.server.tracing", "ALL");
-        initParams.put("jersey.config.servlet.filter.staticContentRegex", "/(images|js|styles|(/jsp))/.*");  //"(/index.jsp)|(/(content|(WEB-INF/jsp))/.*)");
 
+        // Debug tracing
+        initParams.put(ServerProperties.TRACING, TracingConfig.ALL.name());
+        initParams.put(ServerProperties.TRACING_THRESHOLD, "VERBOSE");
+
+        // FOR JSP
+        //initParams.put("jersey.config.server.tracing", "ALL");
+        initParams.put("jersey.config.servlet.filter.staticContentRegex", "/(images|js|styles|(/jsp))/.*");  //"(/index.jsp)|(/(content|(WEB-INF/jsp))/.*)");
+        initParams.put("jersey.config.servlet.filter.forwardOn404", "true");
         initParams.put("jersey.config.server.provider.packages", Config.RESOURCE_PACKAGES);
 
 
