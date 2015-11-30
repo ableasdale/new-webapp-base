@@ -2,8 +2,6 @@ package com.example;
 
 import com.example.config.Config;
 import io.swagger.jersey.listing.ApiListingResourceJSON;
-import org.glassfish.grizzly.servlet.FilterRegistration;
-import org.glassfish.grizzly.servlet.WebappContext;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -14,16 +12,11 @@ import org.glassfish.jersey.server.TracingConfig;
 import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
 import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
 import org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature;
-import org.glassfish.jersey.servlet.ServletContainer;
-import org.glassfish.jersey.servlet.ServletProperties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.DispatcherType;
 import javax.ws.rs.ext.ContextResolver;
 import java.io.IOException;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 

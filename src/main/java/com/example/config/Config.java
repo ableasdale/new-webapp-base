@@ -1,6 +1,6 @@
 package com.example.config;
 
-import com.example.resources.HelloResource;
+import com.example.resources.BaseResource;
 import io.swagger.jaxrs.config.BeanConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
@@ -34,7 +34,7 @@ public class Config {
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setVersion("1.0");
         beanConfig.setScan(true);
-        beanConfig.setResourcePackage(HelloResource.class.getPackage().getName());
+        beanConfig.setResourcePackage(BaseResource.class.getPackage().getName());
         beanConfig.setBasePath(Config.getBaseURI().toString());
         beanConfig.setDescription("Hello resources");
         beanConfig.setTitle("Hello API");

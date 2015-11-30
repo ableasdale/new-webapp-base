@@ -25,10 +25,10 @@ public class RootResource extends BaseResource {
     private static final Logger LOG = LoggerFactory.getLogger(RootResource.class);
 
     @GET
-    @ApiOperation(value = "lalala", notes = "asdasd")
+    @ApiOperation(value = "The Root Example Resource", notes = "Here is a root resource - this is an example of how you create and annotate a Jersey resource for Swagger")
     @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Invalid ID supplied"),
-            @ApiResponse(code = 404, message = "Pet not found")
+            @ApiResponse(code = 400, message = "Not sure what happend?"),
+            @ApiResponse(code = 404, message = "Template not found")
     })
 
     @Produces(MediaType.TEXT_HTML)
