@@ -2,9 +2,12 @@ package com.example.config;
 
 import com.example.resources.BaseResource;
 import io.swagger.jaxrs.config.BeanConfig;
+import io.swagger.jersey.listing.ApiListingResourceJSON;
 import org.apache.commons.lang3.StringUtils;
+import org.glassfish.jersey.filter.LoggingFilter;
+import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
-import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
 import org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature;
 
 import javax.ws.rs.core.UriBuilder;
@@ -41,32 +44,31 @@ public class Config {
         return beanConfig;
     }
 
-
-
-
+    public static String APP_RESOURCE_PACKAGES = "com.example.resources";
     public static String RESOURCE_PACKAGES = "com.example.resources,io.swagger.jaxrs.listing";
 
     public static String[] PROVIDER_CLASSNAMES = {
             "org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature",
             "org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature",
-            "org.glassfish.jersey.server.mvc.jsp.JspMvcFeature",
-            "ch.qos.logback.classic.ViewStatusMessagesServlet",
+            "ch.qos.logback.classic.ViewStatusMessagesServlet"};
+
+    /*
             "org.glassfish.jersey.filter.LoggingFilter",
             "org.glassfish.jersey.jackson.JacksonFeature"
-    };
+    };*/
 
     public static String FREEMARKER_TEMPLATE_BASE_PATH = "freemarker";
     public static String MUSTACHE_TEMPLATE_BASE_PATH = "mustache";
-    public static String JSP_TEMPLATE_BASE_PATH = "/src/main/resources/jsp";
+
 
     /* Helper Methods */
     public static Map getBaseInitParams() {
         final Map<String, String> initParams = new HashMap<String, String>();
         initParams.put(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, Config.FREEMARKER_TEMPLATE_BASE_PATH);
         initParams.put(MustacheMvcFeature.TEMPLATE_BASE_PATH, Config.MUSTACHE_TEMPLATE_BASE_PATH);
-        initParams.put(JspMvcFeature.TEMPLATE_BASE_PATH, Config.JSP_TEMPLATE_BASE_PATH);
         return initParams;
     }
+
     public static String getProviderClassnames() {
         return StringUtils.join(PROVIDER_CLASSNAMES, ",");
     }
@@ -75,4 +77,43 @@ public class Config {
         return UriBuilder.fromUri(Config.BASE_URI).port(Config.PORT).path("/").build();
     }
 
+    public static ResourceConfig getBaseResourceConfig() {
+        return new ResourceConfig()
+                // Project specific packages
+                .packages(Config.APP_RESOURCE_PACKAGES)
+
+                // MVC (Template) Engines
+
+                // Freemarker
+                .register(org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature.class)
+                .property(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, Config.FREEMARKER_TEMPLATE_BASE_PATH)
+
+                // Mustache
+                .register(org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature.class)
+                .property(MustacheMvcFeature.TEMPLATE_BASE_PATH, Config.MUSTACHE_TEMPLATE_BASE_PATH)
+
+
+
+
+                                /* Debug tracing
+                .property(ServerProperties.TRACING, TracingConfig.ON_DEMAND.name())
+                .property(ServerProperties.TRACING_THRESHOLD, "VERBOSE") */
+
+
+
+                // TODO - CURRENTLY NOT WORKING .register(ch.qos.logback.classic.ViewStatusMessagesServlet.class)
+                //.register(io.swagger.jersey.config.JerseyJaxrsConfig.class)
+                // Swagger Resources
+                //.property("api.version", "1.0.0")
+                //?.register(org.glassfish.jersey.servlet.ServletContainer.class)
+                //.register(io.swagger.jaxrs.listing.ApiListingResource.class)
+                //.register(io.swagger.jaxrs.listing.SwaggerSerializers.class)
+                //.register(JacksonFeature.class)
+                //.register(ApiListingResourceJSON.class)
+                //.register(createMoxyJsonResolver())
+                // add detailed logging
+                //.register(LoggingFilter.class);
+        //.register(ApiListingResourceJSON.class);
+                ;
+    }
 }

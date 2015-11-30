@@ -39,9 +39,9 @@ public class WebContainer {
         initParams.put("jersey.config.server.provider.classnames", Config.getProviderClassnames());
         initParams.put("jersey.config.server.provider.packages", Config.RESOURCE_PACKAGES);
 
-        // Debug tracing
+        /* Debug tracing
         initParams.put(ServerProperties.TRACING, TracingConfig.ALL.name());
-        initParams.put(ServerProperties.TRACING_THRESHOLD, "VERBOSE");
+        initParams.put(ServerProperties.TRACING_THRESHOLD, "VERBOSE"); */
 
         // Create the container
         final HttpServer server = GrizzlyWebContainerFactory.create(Config.getBaseURI(), initParams);

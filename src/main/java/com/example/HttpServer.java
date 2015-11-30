@@ -7,10 +7,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.moxy.json.MoxyJsonConfig;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.server.ServerProperties;
-import org.glassfish.jersey.server.TracingConfig;
 import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
-import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
 import org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,39 +61,15 @@ public class HttpServer {
 
     protected static org.glassfish.grizzly.http.server.HttpServer startServer() throws IOException {
 
-        String[] packages = {"com.example.resources"};//,"io.swagger.resources"};
+        //String[] packages = {"com.example.resources"};//,"io.swagger.resources"};
 
         // Configure Swagger
         Config.getSwaggerBeanConfig();
 
-        ResourceConfig rc = new ResourceConfig()
-                // Project specific packages
-                .packages(packages)
-                // MVC Engines
-                .property(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, Config.FREEMARKER_TEMPLATE_BASE_PATH)
-                .property(MustacheMvcFeature.TEMPLATE_BASE_PATH, Config.MUSTACHE_TEMPLATE_BASE_PATH)
-                .property(JspMvcFeature.TEMPLATE_BASE_PATH, Config.JSP_TEMPLATE_BASE_PATH)
+        ResourceConfig rc = Config.getBaseResourceConfig();
+        rc.register(createMoxyJsonResolver());
 
-                // Debug tracing
-                .property(ServerProperties.TRACING, TracingConfig.ON_DEMAND.name())
-                .property(ServerProperties.TRACING_THRESHOLD, "VERBOSE")
 
-                .register(org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature.class)
-                .register(org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature.class)
-
-                // TODO - CURRENTLY NOT WORKING .register(ch.qos.logback.classic.ViewStatusMessagesServlet.class)
-                //.register(io.swagger.jersey.config.JerseyJaxrsConfig.class)
-                // Swagger Resources
-                //.property("api.version", "1.0.0")
-                //?.register(org.glassfish.jersey.servlet.ServletContainer.class)
-                //.register(io.swagger.jaxrs.listing.ApiListingResource.class)
-                //.register(io.swagger.jaxrs.listing.SwaggerSerializers.class)
-                .register(JacksonFeature.class)
-                .register(ApiListingResourceJSON.class)
-                .register(createMoxyJsonResolver())
-                // add detailed logging
-                .register(LoggingFilter.class);
-                //.register(ApiListingResourceJSON.class);
        /*
         rc.register(JerseyApiDeclarationProvider.class);
         rc.register(JerseyResourceListingProvider.class);

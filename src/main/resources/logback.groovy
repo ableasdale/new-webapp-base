@@ -3,8 +3,8 @@ import ch.qos.logback.core.ConsoleAppender
 import org.slf4j.bridge.SLF4JBridgeHandler
 import ch.qos.logback.classic.jul.LevelChangePropagator
 
-//logback.debug=true
 
+/* For debugging Jetty - adding detailed logging back in
 // see also: http://logback.qos.ch/manual/configuration.html#LevelChangePropagator
 // performance speedup for redirected JUL loggers
 def lcp = new LevelChangePropagator()
@@ -17,6 +17,7 @@ java.util.logging.LogManager.getLogManager().reset()
 SLF4JBridgeHandler.removeHandlersForRootLogger()
 SLF4JBridgeHandler.install()
 java.util.logging.Logger.getLogger( "global" ).setLevel( java.util.logging.Level.FINEST )
+*/
 
 def logPattern = "%date |%.-1level| [%thread] %20.20logger{10}|  %msg%n"
 
@@ -36,28 +37,14 @@ appender("ROLLING", RollingFileAppender) {  // prod
     }
 }
 */
-/*
-appender("FILE", FileAppender) {  // dev
-
-    // log to myapp/tmp (independent of running in dev/prod or junit mode:
-
-    //System.out.println( 'DEBUG: WEBAPP_DIR env prop:  "."='+new File('.').absolutePath+',  \${WEBAPP_DIR}=${WEBAPP_DIR},  env=' + System.getProperty( "WEBAPP_DIR" ))
-    String webappDirName = "war"
-    if ( new File( "./../"+webappDirName ).exists() )  // we are not running within a junit test
-        file = "../tmp/myapp.log"
-    else  // junit test
-        file = "tmp/myapp-junit-tests.log"
-
-    encoder(PatternLayoutEncoder) { pattern = logPattern }
-}*/
 
 // without JUL bridge:
 //root(WARN, ["STDOUT", "ROLLING"])  // prod
 //root(DEBUG, ["STDOUT", "FILE"])  // dev
 
 // with JUL bridge: (workaround: see links above)
-def rootLvl = TRACE
-root(TRACE, ["STDOUT"])
+def rootLvl = INFO
+root(INFO, ["STDOUT"])
 // I manually added all "root package dirs" I know my libs are based on to apply
 // the root level to the second "package dir level" at least
 // depending on your libs used you could remove entries, but I would recommend
