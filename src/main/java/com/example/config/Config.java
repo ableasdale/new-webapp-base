@@ -57,7 +57,7 @@ public class Config {
 
     public static String FREEMARKER_TEMPLATE_BASE_PATH = "freemarker";
     public static String MUSTACHE_TEMPLATE_BASE_PATH = "mustache";
-    public static String JSP_TEMPLATE_BASE_PATH = "jsp";
+    public static String JSP_TEMPLATE_BASE_PATH = "/jsp";
 
     /* Helper Methods */
     public static Map getBaseInitParams() {

@@ -31,6 +31,7 @@ dependencies {
     compile "org.glassfish.jersey.core:jersey-server:$jerseyVersion"
     compile "org.glassfish.jersey.containers:jersey-container-grizzly2-http:$jerseyVersion"
     compile "org.glassfish.jersey.containers:jersey-container-grizzly2-servlet:$jerseyVersion"
+    compile "org.glassfish.jersey.containers:jersey-container-servlet-core:$jerseyVersion"
     compile "org.glassfish.jersey.ext:jersey-mvc-freemarker:$jerseyVersion"
     compile "org.glassfish.jersey.ext:jersey-mvc-mustache:$jerseyVersion"
     compile "org.glassfish.jersey.ext:jersey-mvc-jsp:$jerseyVersion"

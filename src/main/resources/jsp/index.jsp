@@ -10,8 +10,8 @@
 </head>
 <body>
 <h1>Example JSP Page</h1>
-<h2><%=id%></h2>
-<h3><%=title%></h3>
+<h2>${it.id}</h2>
+<h3>${it.title}</h3>
 </body>
 </html>
 

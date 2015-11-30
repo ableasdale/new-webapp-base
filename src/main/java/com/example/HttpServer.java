@@ -9,12 +9,14 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.moxy.json.MoxyJsonConfig;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ServerProperties;
+import org.glassfish.jersey.server.TracingConfig;
 import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
 import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
 import org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;
-import org.jetbrains.annotations.NotNull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +34,14 @@ import java.util.Map;
 * https://github.com/ralf0131/swagger-core/commit/4d81afbcbf984c701c9ea3308f4641a6c7fb5c85
 * https://github.com/swagger-api/swagger-core/wiki/Swagger-Core-Jersey-2.X-Project-Setup-1.5
 * */
+
+/* Note 2:
+ * Jersey provides MVC support for JSP pages. There is a JSP template processor that resolves absolute template references to processable template references that are JSP pages as follows:
+
+ if the absolute template reference does not end in ".jsp" append it to the reference; and
+ if Servlet.getResource returns a non-null value for the appended reference then return the appended reference as the processable template reference otherwise return null.
+ Thus the absolute template reference "/com/foo/Foo/index" would be resolved to "/com/foo/Foo/index.jsp" if there exists the JSP page "/com/foo/Foo/index.jsp" in web the application.
+ */
 public class HttpServer {
 
     private static final Logger LOG = LoggerFactory.getLogger(HttpServer.class);
@@ -46,7 +56,7 @@ public class HttpServer {
         new HttpServer().startServer();
     }
 
-    @NotNull
+
     public static ContextResolver<MoxyJsonConfig> createMoxyJsonResolver() {
         final MoxyJsonConfig moxyJsonConfig = new MoxyJsonConfig();
         Map<String, String> namespacePrefixMapper
@@ -73,6 +83,12 @@ public class HttpServer {
                 .property(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, Config.FREEMARKER_TEMPLATE_BASE_PATH)
                 .property(MustacheMvcFeature.TEMPLATE_BASE_PATH, Config.MUSTACHE_TEMPLATE_BASE_PATH)
                 .property(JspMvcFeature.TEMPLATE_BASE_PATH, Config.JSP_TEMPLATE_BASE_PATH)
+
+                // TODO - below is still wrong!
+                .property("jersey.config.servlet.filter.staticContentRegex", "/(images|js|styles|(jsp))/.*")
+                .property("jersey.config.servlet.filter.forwardOn404", "true")
+                .property(ServerProperties.TRACING, TracingConfig.ON_DEMAND.name())
+
 
                 .register(org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature.class)
                 .register(org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature.class)

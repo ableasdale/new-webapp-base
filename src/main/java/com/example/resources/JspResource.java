@@ -22,10 +22,10 @@ public class JspResource extends BaseResource {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public Viewable getDashboard() {
-        LOG.info("Call to JSP resource (/index)");
+        LOG.info("Call to JSP resource and in getDashboard()");
 
         // renders the URI using "src/main/resources/jsp/index.jsp"
-        return new Viewable("index.jsp", createModel("JSP Landing Page"));
+        return new Viewable("/index.jsp", createModel("JSP Landing Page"));
     }
 
 }
