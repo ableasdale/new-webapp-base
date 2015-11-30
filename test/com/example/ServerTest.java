@@ -1,4 +1,5 @@
-import org.glassfish.jersey.test.JerseyTest;
+package com.example;
+
 import org.junit.Test;
 
 /**
@@ -19,5 +20,10 @@ public class ServerTest extends TestSupport {
     @Test
     public void testMustacheResource() throws Exception {
         assertHtmlEnResponse(target("mustache").request().get(String.class));
+    }
+
+    @Test
+    public void testSwaggerJson() throws Exception {
+        assertHtmlEnResponse(target("swagger.json").request().get(String.class));
     }
 }

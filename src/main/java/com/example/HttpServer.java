@@ -1,14 +1,9 @@
 package com.example;
 
 import com.example.config.Config;
-import io.swagger.jersey.listing.ApiListingResourceJSON;
-import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.moxy.json.MoxyJsonConfig;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
-import org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

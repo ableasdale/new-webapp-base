@@ -1,3 +1,5 @@
+package com.example;
+
 import com.example.config.Config;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;

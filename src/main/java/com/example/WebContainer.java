@@ -3,8 +3,6 @@ package com.example;
 import com.example.config.Config;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.servlet.GrizzlyWebContainerFactory;
-import org.glassfish.jersey.server.ServerProperties;
-import org.glassfish.jersey.server.TracingConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
