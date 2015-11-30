@@ -14,6 +14,7 @@ import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
 import org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,11 +36,6 @@ public class HttpServer {
 
     private static final Logger LOG = LoggerFactory.getLogger(HttpServer.class);
 
-    private static final String JERSEY_SERVLET_CONTEXT_PATH = "";
-    private static final String JSP_CLASSPATH_ATTRIBUTE =
-            "org.apache.catalina.jsp_classpath";
-
-
     /**
      * Start the Jersey FreeMarker application.
      *
@@ -50,6 +46,7 @@ public class HttpServer {
         new HttpServer().startServer();
     }
 
+    @NotNull
     public static ContextResolver<MoxyJsonConfig> createMoxyJsonResolver() {
         final MoxyJsonConfig moxyJsonConfig = new MoxyJsonConfig();
         Map<String, String> namespacePrefixMapper
@@ -73,9 +70,9 @@ public class HttpServer {
                 // Project specific packages
                 .packages(packages)
                 // MVC Engines
-                .property(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, "freemarker")
-                .property(MustacheMvcFeature.TEMPLATE_BASE_PATH, "mustache")
-                .property(JspMvcFeature.TEMPLATE_BASE_PATH, "jsp")
+                .property(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, Config.FREEMARKER_TEMPLATE_BASE_PATH)
+                .property(MustacheMvcFeature.TEMPLATE_BASE_PATH, Config.MUSTACHE_TEMPLATE_BASE_PATH)
+                .property(JspMvcFeature.TEMPLATE_BASE_PATH, Config.JSP_TEMPLATE_BASE_PATH)
 
                 .register(org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature.class)
                 .register(org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature.class)
@@ -100,39 +97,10 @@ public class HttpServer {
                 .property("api.version", "1.0.0")*/
 
 
-
         LOG.info("Starting grizzly HTTP Server");
         LOG.info(String.format("For a list of available HTTP Resources go to: %sapplication.wadl", Config.getBaseURI()));
         org.glassfish.grizzly.http.server.HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(Config.getBaseURI(), rc);
 
-        WebappContext context = new WebappContext("WebappContext", JERSEY_SERVLET_CONTEXT_PATH);
-
-        // Initialize and register Jersey Servlet
-        FilterRegistration registration = context.addFilter("ServletContainer",
-                ServletContainer.class);
-        registration.setInitParameter("javax.ws.rs.Application",
-                MyApplication.class.getName());
-//        registration.setInitParameter(JspProperties.TEMPLATES_BASE_PATH,
-//                "/WEB-INF/jsp");
-        // configure Jersey to bypass non-Jersey requests (static resources and jsps)
-        registration.setInitParameter(ServletProperties.FILTER_STATIC_CONTENT_REGEX,
-                "(/(image|js|css)/?.*)|(/.*\\.jsp)|(/WEB-INF/.*\\.jsp)|"
-                        + "(/WEB-INF/.*\\.jspf)|(/.*\\.html)|(/favicon\\.ico)|"
-                        + "(/robots\\.txt)");
-
-        registration.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), "/*");
-
-        // Initialize and register JSP Servlet
-        /*
-        ServletRegistration jspRegistration = context.addServlet(
-                "JSPContainer", JspServlet.class.getName());
-        jspRegistration.addMapping("/*");*/
-
-        // Set classpath for Jasper compiler based on the current classpath
-        context.setAttribute(JSP_CLASSPATH_ATTRIBUTE,
-                System.getProperty("java.class.path"));
-
-        context.deploy(httpServer);
         return httpServer;
     }
 
