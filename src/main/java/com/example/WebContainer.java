@@ -2,8 +2,6 @@ package com.example;
 
 
 import com.example.config.Config;
-import com.example.resources.BaseResource;
-import io.swagger.jaxrs.config.BeanConfig;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.servlet.GrizzlyWebContainerFactory;
 import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
@@ -19,7 +17,6 @@ import java.util.Map;
 public class WebContainer {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebContainer.class);
-
 
     /**
      * Start the Jersey FreeMarker application.
@@ -38,13 +35,7 @@ public class WebContainer {
                 "com.sun.xml.internal.bind.v2.ContextFactory");
 
 
-        BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setVersion("1.0");
-        beanConfig.setScan(true);
-        beanConfig.setResourcePackage(BaseResource.class.getPackage().getName());
-        beanConfig.setBasePath(Config.getBaseURI().toString());
-        beanConfig.setDescription("Hello resources");
-        beanConfig.setTitle("Hello API");
+        Config.getSwaggerBeanConfig();
 
         final Map<String, String> initParams = new HashMap<String, String>();
 

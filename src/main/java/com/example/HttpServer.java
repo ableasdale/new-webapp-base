@@ -1,11 +1,8 @@
 package com.example;
 
 import com.example.config.Config;
-import com.example.resources.HelloResource;
-import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jersey.listing.ApiListingResourceJSON;
 import org.glassfish.grizzly.servlet.FilterRegistration;
-import org.glassfish.grizzly.servlet.ServletRegistration;
 import org.glassfish.grizzly.servlet.WebappContext;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -21,14 +18,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.DispatcherType;
-import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.ext.ContextResolver;
 import java.io.IOException;
-import java.net.URI;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
-
 
 /*
 * NOTE - This is a mess right now (trying to get Swagger working... To use swagger - use WebContainer.java
@@ -71,22 +65,9 @@ public class HttpServer {
     protected static org.glassfish.grizzly.http.server.HttpServer startServer() throws IOException {
 
         String[] packages = {"com.example.resources"};//,"io.swagger.resources"};
-/*
-        BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setVersion("1.0.0");
-        beanConfig.setSchemes(new String[]{"http"});
-        beanConfig.setHost("0.0.0.0:9999");
-        beanConfig.setBasePath("/api");
-        beanConfig.setResourcePackage("com.example.resources");
-        beanConfig.setScan(true); */
 
-        BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setVersion("1.0");
-        beanConfig.setScan(true);
-        beanConfig.setResourcePackage(HelloResource.class.getPackage().getName());
-        beanConfig.setBasePath(Config.getBaseURI().toString());
-        beanConfig.setDescription("Hello resources");
-        beanConfig.setTitle("Hello API");
+        // Configure Swagger
+        Config.getSwaggerBeanConfig();
 
         ResourceConfig rc = new ResourceConfig()
                 // Project specific packages
@@ -154,6 +135,5 @@ public class HttpServer {
         context.deploy(httpServer);
         return httpServer;
     }
-
 
 }
