@@ -23,7 +23,13 @@ public class ServerTest extends TestSupport {
     }
 
     @Test
+    public void testWadlResource() throws Exception {
+        assertWadlResponse(target("application.wadl").request().get(String.class));
+    }
+
+    /*
+    @Test
     public void testSwaggerJson() throws Exception {
         assertHtmlEnResponse(target("swagger.json").request().get(String.class));
-    }
+    }*/
 }

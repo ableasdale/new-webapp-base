@@ -62,7 +62,7 @@ public class HttpServer {
         Config.getSwaggerBeanConfig();
 
         ResourceConfig rc = Config.getBaseResourceConfig();
-        rc.register(createMoxyJsonResolver());
+        //rc.register(createMoxyJsonResolver());
 
 
        /*

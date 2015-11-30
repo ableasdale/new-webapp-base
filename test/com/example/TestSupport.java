@@ -1,9 +1,6 @@
 package com.example;
 
 import com.example.config.Config;
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature;
-import org.glassfish.jersey.servlet.ServletProperties;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.TestProperties;
 
@@ -19,6 +16,7 @@ public class TestSupport extends JerseyTest {
 
     protected Application configure() {
         forceSet(TestProperties.CONTAINER_PORT, "9995");
+        Config.getSwaggerBeanConfig();
         //System.setProperty("jersey.test.port", "9995");
         return Config.getBaseResourceConfig();
     }
@@ -29,6 +27,11 @@ public class TestSupport extends JerseyTest {
         assertResponseContains(response, "<html>");
         assertResponseContains(response, "</html>");
     }*/
+
+    protected void assertWadlResponse(String response) {
+        assertResponseContains(response, "<application xmlns=\"http://wadl.dev.java.net/2009/02\">");
+        assertResponseContains(response, "</application>");
+    }
 
     protected void assertAngularHtmlResponse(String response) {
         assertNotNull("No text returned!", response);
