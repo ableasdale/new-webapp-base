@@ -37,7 +37,7 @@ public class WebContainer {
 
         Config.getSwaggerBeanConfig();
 
-        final Map<String, String> initParams = new HashMap<String, String>();
+        final Map<String, String> initParams = Config.getBaseInitParams();
 
         initParams.put("jersey.config.server.provider.classnames", Config.getProviderClassnames());
 
@@ -46,9 +46,8 @@ public class WebContainer {
         initParams.put("jersey.config.servlet.filter.staticContentRegex", "/(images|js|styles|(/jsp))/.*");  //"(/index.jsp)|(/(content|(WEB-INF/jsp))/.*)");
 
         initParams.put("jersey.config.server.provider.packages", Config.RESOURCE_PACKAGES);
-        initParams.put(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, "freemarker");
-        initParams.put(MustacheMvcFeature.TEMPLATE_BASE_PATH, "mustache");
-        initParams.put(JspMvcFeature.TEMPLATE_BASE_PATH, "jsp");
+
+
 
         // Create the container
         final HttpServer server = GrizzlyWebContainerFactory.create(Config.getBaseURI(), initParams);
