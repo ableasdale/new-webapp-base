@@ -84,16 +84,13 @@ public class HttpServer {
                 .property(MustacheMvcFeature.TEMPLATE_BASE_PATH, Config.MUSTACHE_TEMPLATE_BASE_PATH)
                 .property(JspMvcFeature.TEMPLATE_BASE_PATH, Config.JSP_TEMPLATE_BASE_PATH)
 
-                // TODO - below is still wrong!
-                .property("jersey.config.servlet.filter.staticContentRegex", "/(images|js|styles|(jsp))/.*")
-                .property("jersey.config.servlet.filter.forwardOn404", "true")
-
                 // Debug tracing
                 .property(ServerProperties.TRACING, TracingConfig.ON_DEMAND.name())
                 .property(ServerProperties.TRACING_THRESHOLD, "VERBOSE")
 
                 .register(org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature.class)
                 .register(org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature.class)
+
                 // TODO - CURRENTLY NOT WORKING .register(ch.qos.logback.classic.ViewStatusMessagesServlet.class)
                 //.register(io.swagger.jersey.config.JerseyJaxrsConfig.class)
                 // Swagger Resources

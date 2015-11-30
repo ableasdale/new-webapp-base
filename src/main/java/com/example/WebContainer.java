@@ -28,8 +28,8 @@ public class WebContainer {
     public static void startServer() throws IOException {
         LOG.info("Starting Grizzly Web Container.");
 
-        System.setProperty("javax.xml.bind.JAXBContext",
-                "com.sun.xml.internal.bind.v2.ContextFactory");
+       /* System.setProperty("javax.xml.bind.JAXBContext",
+                "com.sun.xml.internal.bind.v2.ContextFactory"); */
 
 
         Config.getSwaggerBeanConfig();
@@ -37,19 +37,11 @@ public class WebContainer {
         final Map<String, String> initParams = Config.getBaseInitParams();
 
         initParams.put("jersey.config.server.provider.classnames", Config.getProviderClassnames());
-
+        initParams.put("jersey.config.server.provider.packages", Config.RESOURCE_PACKAGES);
 
         // Debug tracing
         initParams.put(ServerProperties.TRACING, TracingConfig.ALL.name());
         initParams.put(ServerProperties.TRACING_THRESHOLD, "VERBOSE");
-
-        // FOR JSP
-        //initParams.put("jersey.config.server.tracing", "ALL");
-        initParams.put("jersey.config.servlet.filter.staticContentRegex", "/(images|js|styles|(/jsp))/.*");  //"(/index.jsp)|(/(content|(WEB-INF/jsp))/.*)");
-        initParams.put("jersey.config.servlet.filter.forwardOn404", "true");
-        initParams.put("jersey.config.server.provider.packages", Config.RESOURCE_PACKAGES);
-
-
 
         // Create the container
         final HttpServer server = GrizzlyWebContainerFactory.create(Config.getBaseURI(), initParams);

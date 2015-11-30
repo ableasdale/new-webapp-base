@@ -18,7 +18,6 @@ TODO - gradle exec
 ###TODO###
 - BDD (Cucumber)
 - Add at least one provider
-- JSP Provider still rather broken!
 - Completely connect http://0.0.0.0:9999/application.wadl to swagger.io (only partially implemented)
 - Correctly Hook up logging servlet for logback http://logback.qos.ch/manual/configuration.html
 - Other MVC engines (jade?)
