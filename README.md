@@ -1,4 +1,6 @@
 #Jersey 2 / Grizzly 2 Web Application Base#
+[![Build Status](https://travis-ci.org/ableasdale/new-webapp-base.svg?branch=master)](https://travis-ci.org/ableasdale/new-webapp-base)
+
 ##Getting Started##
 
 TODO - gradle exec
