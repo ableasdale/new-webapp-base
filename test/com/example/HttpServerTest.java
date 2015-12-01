@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * Created by ableasdale on 18/11/15.
  */
-public class ServerTest extends TestSupport {
+public class HttpServerTest extends TestSupport {
 
     @Test
     public void testBootstrapResource() throws Exception {
