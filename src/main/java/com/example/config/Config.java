@@ -1,5 +1,6 @@
 package com.example.config;
 
+import com.example.filters.CORSFilter;
 import com.example.resources.BaseResource;
 import io.swagger.jaxrs.config.BeanConfig;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +25,9 @@ public class Config {
     public static String[] PROVIDER_CLASSNAMES = {
             "org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature",
             "org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature",
-            "ch.qos.logback.classic.ViewStatusMessagesServlet"};
+            "ch.qos.logback.classic.ViewStatusMessagesServlet",
+            "com.example.filters.CORSFilter"
+    };
     public static String FREEMARKER_TEMPLATE_BASE_PATH = "freemarker";
 
     /*
@@ -74,14 +77,15 @@ public class Config {
         return new ResourceConfig()
                 // Project specific packages
                 .packages(Config.RESOURCE_PACKAGES)
-
+                .register(CORSFilter.class)
                 /* MVC (Template) Engines */
                 // Freemarker
                 .register(org.glassfish.jersey.server.mvc.freemarker.FreemarkerMvcFeature.class)
                 .property(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, Config.FREEMARKER_TEMPLATE_BASE_PATH)
                 // Mustache
                 .register(org.glassfish.jersey.server.mvc.mustache.MustacheMvcFeature.class)
-                .property(MustacheMvcFeature.TEMPLATE_BASE_PATH, Config.MUSTACHE_TEMPLATE_BASE_PATH)
+                .property(MustacheMvcFeature.TEMPLATE_BASE_PATH, Config.MUSTACHE_TEMPLATE_BASE_PATH);
+
 
                 /* Debug tracing */
                 //.property(ServerProperties.TRACING, TracingConfig.ON_DEMAND.name())
@@ -100,6 +104,6 @@ public class Config {
                 // add detailed logging
                 //.register(LoggingFilter.class);
                 //.register(ApiListingResourceJSON.class);
-                ;
+
     }
 }

@@ -37,6 +37,10 @@ public class WebContainer {
         initParams.put("jersey.config.server.provider.classnames", Config.getProviderClassnames());
         initParams.put("jersey.config.server.provider.packages", Config.RESOURCE_PACKAGES);
 
+        // CORSFilter
+        //initParams.put("", com.example.CORSFilter());
+        //RC? == resourceConfig.getContainerResponseFilters().add(new CORSFilter());
+
         /* Debug tracing
         initParams.put(ServerProperties.TRACING, TracingConfig.ALL.name());
         initParams.put(ServerProperties.TRACING_THRESHOLD, "VERBOSE"); */

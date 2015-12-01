@@ -14,6 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.Application;
+import javax.ws.rs.core.MultivaluedMap;
+
+import static org.junit.Assert.assertEquals;
 
 public class WebContainerTest extends TestSupport {
 
@@ -64,5 +67,14 @@ public class WebContainerTest extends TestSupport {
     @Test
     public void testSwaggerJson() throws Exception {
         assertSwaggerJsonResponse(target("swagger.json").request().get(String.class));
+    }
+
+    @Test
+    public void testSwaggerCORSCompliantHeaders() throws Exception {
+        MultivaluedMap mm = target("swagger.json").request().get().getHeaders();
+        assertEquals("[*]", mm.get("Access-Control-Allow-Origin").toString());
+        assertEquals("[true]", mm.get("Access-Control-Allow-Credentials").toString());
+        assertEquals("[Content-Type, api_key, Authorization, origin, accept]", mm.get("Access-Control-Allow-Headers").toString());
+        assertEquals("[GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH]", mm.get("Access-Control-Allow-Methods").toString());
     }
 }
