@@ -1,8 +1,5 @@
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import ch.qos.logback.core.ConsoleAppender
-import org.slf4j.bridge.SLF4JBridgeHandler
-import ch.qos.logback.classic.jul.LevelChangePropagator
-
 
 /* For debugging Jetty - adding detailed logging back in
 // see also: http://logback.qos.ch/manual/configuration.html#LevelChangePropagator
@@ -65,7 +62,7 @@ logger( "sun", rootLvl )
 
 */
 
-logger( "org.glassfish", TRACE )
-logger( "com.example", DEBUG )
+logger("org.glassfish", TRACE)
+logger("com.example", DEBUG)
 
 scan("30 seconds")  // reload/apply-on-change config every x sec
