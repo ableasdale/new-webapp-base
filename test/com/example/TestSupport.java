@@ -28,6 +28,10 @@ public class TestSupport extends JerseyTest {
         assertResponseContains(response, "</html>");
     }*/
 
+    protected void assertSwaggerJsonResponse(String response) {
+        assertResponseContains(response, "\"swagger\":\"2.0\"");
+    }
+
     protected void assertWadlResponse(String response) {
         assertResponseContains(response, "<application xmlns=\"http://wadl.dev.java.net/2009/02\">");
         assertResponseContains(response, "</application>");

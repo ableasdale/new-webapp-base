@@ -67,4 +67,9 @@ public class WebContainerTest extends TestSupport {
         LOG.info(target("application.wadl").request().get(String.class));
         assertWadlResponse(target("application.wadl").request().get(String.class));
     }
+
+    @Test
+    public void testSwaggerJson() throws Exception {
+        assertSwaggerJsonResponse(target("swagger.json").request().get(String.class));
+    }
 }

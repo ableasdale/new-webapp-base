@@ -27,9 +27,4 @@ public class HttpServerTest extends TestSupport {
         assertWadlResponse(target("application.wadl").request().get(String.class));
     }
 
-    /*
-    @Test
-    public void testSwaggerJson() throws Exception {
-        assertHtmlEnResponse(target("swagger.json").request().get(String.class));
-    }*/
 }
