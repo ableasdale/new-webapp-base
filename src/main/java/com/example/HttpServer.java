@@ -2,7 +2,7 @@ package com.example;
 
 import com.example.config.Config;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.moxy.json.MoxyJsonConfig;
+
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public class HttpServer {
         new HttpServer().startServer();
     }
 
-
+    /*
     public static ContextResolver<MoxyJsonConfig> createMoxyJsonResolver() {
         final MoxyJsonConfig moxyJsonConfig = new MoxyJsonConfig();
         Map<String, String> namespacePrefixMapper
@@ -51,7 +51,7 @@ public class HttpServer {
         moxyJsonConfig.setNamespacePrefixMapper(namespacePrefixMapper)
                 .setNamespaceSeparator(':');
         return moxyJsonConfig.resolver();
-    }
+    } */
 
 
     protected static org.glassfish.grizzly.http.server.HttpServer startServer() throws IOException {
