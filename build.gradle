@@ -3,6 +3,7 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'groovy'
 apply plugin: 'java'
+apply plugin: 'com.github.nwillc.vplugin'
 
 sourceCompatibility = 1.7
 
@@ -46,5 +47,14 @@ sourceSets {
 test {
     testLogging {
         events "passed", "skipped", "failed" //, "standardOut", "standardError"
+    }
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.nwillc:vplugin:1.+'
     }
 }
