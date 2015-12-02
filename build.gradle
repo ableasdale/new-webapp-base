@@ -42,3 +42,9 @@ sourceSets {
         }
     }
 }
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed" //, "standardOut", "standardError"
+    }
+}
